@@ -1,0 +1,331 @@
+/* ==========================================================================
+   1. VARIABLES & RESET
+   ========================================================================== */
+
+   :root {
+    --teal-primary: #14b8a6;
+    --teal-light: #99f6e4;
+    --teal-dark: #0f766e;
+
+    --bg-dark-void: #05070f;
+    --bg-cosmic-indigo: #0f172a;
+
+    --gold-primary: #d4af37;
+    --gold-dark: #b8860b;
+    --gold-deep: #8b6508;
+
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ==========================================================================
+   2. BASE LAYOUT
+   ========================================================================== */
+
+body {
+    min-height: 100vh;
+    font-family: var(--font-sans);
+    background: radial-gradient(
+        ellipse 120% 80% at 50% 0%,
+        #0c1e24 0%,
+        var(--bg-dark-void) 60%
+    );
+    color: #f8fafc;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* MAIN WRAPPER */
+.app {
+    width: 100%;
+    max-width: 900px;
+    height: 100vh;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* ==========================================================================
+   3. HERO SECTION (CENTER FOCUS ORB)
+   ========================================================================== */
+
+.hero {
+    text-align: center;
+    padding-top: 10px;
+    flex-shrink: 0;
+}
+
+.orb-wrap {
+    width: 110px;
+    height: 110px;
+    margin: 0 auto 18px;
+    position: relative;
+}
+
+/* Glow aura */
+.orb-halo {
+    position: absolute;
+    inset: -22px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(20, 184, 166, 0.45),
+        transparent 70%
+    );
+    filter: blur(10px);
+    animation: glowPulse 3.5s ease-in-out infinite;
+}
+
+/* Rings */
+.orb-ring,
+.orb-ring2 {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(20, 184, 166, 0.15);
+}
+
+.orb-ring {
+    inset: -10px;
+}
+
+.orb-ring2 {
+    inset: -22px;
+    opacity: 0.5;
+}
+
+/* Core orb */
+.orb {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle at 35% 35%,
+        var(--teal-light),
+        var(--teal-primary) 55%,
+        var(--teal-dark)
+    );
+    border: 1px solid rgba(255,255,255,0.25);
+    box-shadow:
+        0 10px 30px rgba(20, 184, 166, 0.45),
+        0 0 60px rgba(20, 184, 166, 0.25);
+    animation: orbPulse 3.5s ease-in-out infinite;
+    position: relative;
+}
+
+/* Titles */
+.hero h1 {
+    font-size: 2.4rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #ffffff, var(--teal-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+    margin-top: 6px;
+    font-size: 0.9rem;
+    color: #64748b;
+}
+
+/* ==========================================================================
+   4. CHAT CONTAINER (MAIN STAGE)
+   ========================================================================== */
+
+.chat-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: rgba(17, 24, 39, 0.78);
+    border: 1px solid rgba(255,255,255,0.06);
+    backdrop-filter: blur(28px);
+    border-radius: 22px;
+    padding: 18px;
+    overflow: hidden;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.45);
+}
+
+/* CHAT BOX */
+#chat-box {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding-right: 6px;
+}
+
+/* scrollbar */
+#chat-box::-webkit-scrollbar {
+    width: 4px;
+}
+#chat-box::-webkit-scrollbar-track {
+    background: transparent;
+}
+#chat-box::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+}
+
+/* ==========================================================================
+   5. CHAT BUBBLES & CARDS (REDUCED ACCORDING TO 20% BOUND RULE)
+   ========================================================================== */
+
+.message, .ai-card {
+    max-width: 60%; /* Reduced by 20% from 75% for structured density */
+    line-height: 1.55;
+    font-size: 0.95rem;
+    word-wrap: break-word;
+}
+
+.message {
+    padding: 12px 15px;
+    border-radius: 16px;
+    animation: fadeIn 0.2s ease-out;
+}
+
+/* USER (GOLD IDENTITY) */
+.user {
+    align-self: flex-end;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold-deep));
+    color: #0b0b0b;
+    border-bottom-right-radius: 4px;
+    font-weight: 600;
+    box-shadow: 0 6px 18px rgba(212,175,55,0.18);
+}
+
+/* AI RESPONSES / CARDS (WHITE FOCUS ZONE) */
+.ai, .ai-card {
+    align-self: flex-start;
+    background: #ffffff;
+    color: #0b0b0b;
+    border-radius: 16px;
+    border-bottom-left-radius: 4px;
+    border: 1px solid rgba(0,0,0,0.06);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.25);
+}
+
+/* Internal components of semantic HTML card wrapper */
+.ai-card {
+    animation: fadeIn 0.2s ease-out;
+}
+
+.ai-title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 700;
+    color: #64748b;
+    padding: 10px 15px 2px;
+}
+
+.ai-body {
+    padding: 0 15px 12px;
+}
+
+/* ANIMATION TRACKS */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@keyframes orbPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.04); }
+}
+@keyframes glowPulse {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.12); }
+}
+
+/* ==========================================================================
+   6. INPUT AREA (COMMAND PANEL WITH AMPLIFIED MIC UTILITY)
+   ========================================================================== */
+
+.input-box {
+    display: flex;
+    gap: 10px;
+    margin-top: 14px;
+    background: #000000;
+    border: 1px solid rgba(212,175,55,0.25);
+    border-radius: 14px;
+    padding: 10px;
+}
+
+/* TEXT AREA */
+#message {
+    flex: 1;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(212,175,55,0.2);
+    background: #0a0c12;
+    color: #ffffff;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    outline: none;
+    transition: var(--transition-smooth);
+}
+
+#message:focus {
+    border-color: rgba(212,175,55,0.6);
+    box-shadow: 0 0 0 2px rgba(212,175,55,0.12);
+}
+
+#message::placeholder {
+    color: rgba(255,255,255,0.3);
+}
+
+/* 🎤 AMPLIFIED WHISPER VOICE INTERACTION COMPONENT */
+#mic-btn {
+    width: 52px; /* Distinctly amplified layout space */
+    font-size: 1.25rem; /* Enriched graphic clarity */
+    border-radius: 10px;
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    background: #0d0f17;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-smooth);
+}
+
+#mic-btn:hover {
+    background: #141926;
+    border-color: rgba(212, 175, 55, 0.6);
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.15);
+}
+
+/* SUBMIT UTILITY */
+#send-btn {
+    padding: 12px 20px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+    color: #000;
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: var(--transition-smooth);
+}
+
+#send-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 16px rgba(212,175,55,0.35);
+}
+
+#send-btn:active, #mic-btn:active {
+    transform: translateY(1px);
+}

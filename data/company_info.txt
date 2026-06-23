@@ -1,0 +1,47 @@
+FAZET Edutech Ltd is a software engineering and edutech company based in Kano, Nigeria.
+
+Website:
+fazettech.vercel.app
+
+Mission:
+Build high-performance digital products and software solutions for businesses, schools, and institutions across Africa.
+
+Services:
+
+* Custom Web Development
+* SaaS Development
+* Edutech Solutions
+* AI Chatbot Development
+* UI/UX Design
+* Software Consulting
+
+Products:
+
+1. Naija Timely
+
+   * Booking and scheduling platform for service professionals.
+   * Supports automated scheduling and deposit management.
+
+2. Fazet Edu
+
+   * School management platform.
+   * Student management.
+   * Result management.
+   * Fee management.
+   * Administrative dashboard.
+
+Technology Stack:
+
+* JavaScript
+* React
+* Next.js
+* MERN Stack
+* AI Technologies
+
+Contact:
+Email: [fazetedutechltd@gmail.com](mailto:fazetedutechltd@gmail.com)
+
+Locations:
+
+* No. 279 Kankarofi KMC Head Office, Kano, Nigeria
+* No. 35 Medile Turba Kumbotso, Kano, Nigeria

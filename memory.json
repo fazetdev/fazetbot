@@ -1,0 +1,142 @@
+[
+  {
+    "role": "User",
+    "text": "What is Naija Timely?",
+    "time": "2026-06-19T17:27:24.238786"
+  },
+  {
+    "role": "assistant",
+    "text": "Naija Timely is a specialized Software-as-a-Service (SaaS) application engineered, owned, and deployed exclusively by Fazet Edu Tech Ltd. It is a premium scheduling infrastructure designed for independent professionals, service consultants, and modern corporate practitioners across Nigeria. Its purpose is to eliminate scheduling friction, uncoordinated appointments, and revenue lost to last-minute cancellations, introducing automated scheduling infrastructure.",
+    "time": "2026-06-19T17:27:24.239702"
+  },
+  {
+    "role": "User",
+    "text": "Who is it for?",
+    "time": "2026-06-19T17:27:45.556197"
+  },
+  {
+    "role": "assistant",
+    "text": "NaijaTimely is for an individual sole operator, a busy, multi-chair commercial center, and supports up to 20 distinct team members within a single corporate business profile. It is also used by merchants.",
+    "time": "2026-06-19T17:27:45.557098"
+  },
+  {
+    "role": "User",
+    "text": "what is naijatimely",
+    "time": "2026-06-19T17:40:43.983745"
+  },
+  {
+    "role": "assistant",
+    "text": "NaijaTimely is a specialized Software-as-a-Service (SaaS) application engineered, owned, and deployed exclusively by Fazet Edu Tech Ltd. It is a premium scheduling infrastructure designed for independent professionals, service consultants, and modern corporate practitioners across Nigeria. Its purpose is to eliminate scheduling friction, uncoordinated appointments, and revenue lost to last-minute cancellations, introducing automated scheduling infrastructure.",
+    "time": "2026-06-19T17:40:43.984765"
+  },
+  {
+    "role": "User",
+    "text": "why use it",
+    "time": "2026-06-19T17:40:53.581457"
+  },
+  {
+    "role": "assistant",
+    "text": "NaijaTimely can be used because it passes data payloads securely through localized communication gateways to deliver instant information to endpoint users. Additionally, its clean cloud layout avoids platform bloat, ensuring it remains incredibly responsive for business operators working in areas with low or spotty data coverage.",
+    "time": "2026-06-19T17:40:53.582503"
+  },
+  {
+    "role": "User",
+    "text": "what is naijatimely",
+    "time": "2026-06-19T17:44:32.061343"
+  },
+  {
+    "role": "assistant",
+    "text": "NaijaTimely is a specialized Software-as-a-Service (SaaS) application engineered, owned, and deployed exclusively by Fazet Edu Tech Ltd. It is a premium scheduling infrastructure designed for independent professionals, service consultants, and modern corporate practitioners across Nigeria. Its purpose is to eliminate scheduling friction, uncoordinated appointments, and revenue lost to last-minute cancellations, introducing automated scheduling infrastructure.",
+    "time": "2026-06-19T17:44:32.062449"
+  },
+  {
+    "role": "User",
+    "text": "why you give long answer",
+    "time": "2026-06-19T17:44:45.175733"
+  },
+  {
+    "role": "assistant",
+    "text": "I don't know based on the available knowledge base.",
+    "time": "2026-06-19T17:44:45.176232"
+  },
+  {
+    "role": "User",
+    "text": "is it a good product",
+    "time": "2026-06-19T17:45:00.788006"
+  },
+  {
+    "role": "assistant",
+    "text": "I don't know based on the available knowledge base.",
+    "time": "2026-06-19T17:45:00.788736"
+  },
+  {
+    "role": "User",
+    "text": "python app.py",
+    "time": "2026-06-19T17:47:03.623799"
+  },
+  {
+    "role": "assistant",
+    "text": "I don't know based on the available knowledge base.",
+    "time": "2026-06-19T17:47:03.624646"
+  },
+  {
+    "role": "User",
+    "text": "is it a good product",
+    "time": "2026-06-19T17:47:30.828296"
+  },
+  {
+    "role": "assistant",
+    "text": "I don't know based on the available knowledge base.",
+    "time": "2026-06-19T17:47:30.829112"
+  },
+  {
+    "role": "User",
+    "text": "naijatimely",
+    "time": "2026-06-19T17:47:43.398358"
+  },
+  {
+    "role": "assistant",
+    "text": "NaijaTimely is a specialized Software-as-a-Service (SaaS) application engineered, owned, and deployed exclusively by Fazet Edu Tech Ltd. It is developed, maintained, and operated under the corporate oversight of Fazet Edu Tech Ltd.\n\nNaijaTimely scales dynamically alongside growing teams, handling configurations from an individual sole operator up to a busy, multi-chair commercial center, supporting up to 20 distinct team members within a single corporate business profile.\n\nIt provides internal database fields to help track incoming client scheduling deposits; however, the platform does not touch, hold, or process payments directly. It integrates a flexible Deposit Protection Module designed to secure merchant schedules.\n\nBy establishing an active account or interacting with its booking engine, users agree to be legally bound by its Terms of Service.",
+    "time": "2026-06-19T17:47:43.399585"
+  },
+  {
+    "role": "User",
+    "text": "clear",
+    "time": "2026-06-19T17:48:05.614131"
+  },
+  {
+    "role": "assistant",
+    "text": "I don't know based on the available knowledge base.",
+    "time": "2026-06-19T17:48:05.615224"
+  },
+  {
+    "role": "User",
+    "text": "is it a good product",
+    "time": "2026-06-19T17:48:41.904211"
+  },
+  {
+    "role": "assistant",
+    "text": "I don't know based on the available knowledge base.",
+    "time": "2026-06-19T17:48:41.905107"
+  },
+  {
+    "role": "User",
+    "text": "naijatimely",
+    "time": "2026-06-19T17:48:55.594388"
+  },
+  {
+    "role": "assistant",
+    "text": "NaijaTimely is a specialized Software-as-a-Service (SaaS) application engineered, owned, and deployed exclusively by Fazet Edu Tech Ltd. It is developed, maintained, and operated under the corporate oversight of Fazet Edu Tech Ltd.\n\nNaijaTimely scales dynamically alongside growing teams, handling configurations from an individual sole operator up to a busy, multi-chair commercial center, supporting up to 20 distinct team members within a single corporate business profile.\n\nIt provides internal database fields to help track incoming client scheduling deposits; however, the platform does not touch, hold, or process payments directly. It integrates a flexible Deposit Protection Module designed to secure merchant schedules.\n\nBy establishing an active account or interacting with its booking engine, users agree to be legally bound by its Terms of Service.",
+    "time": "2026-06-19T17:48:55.595488"
+  },
+  {
+    "role": "User",
+    "text": "is it good product",
+    "time": "2026-06-19T17:49:05.555335"
+  },
+  {
+    "role": "assistant",
+    "text": "I don't know based on the available knowledge base.",
+    "time": "2026-06-19T17:49:05.556085"
+  }
+]
