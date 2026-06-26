@@ -8,9 +8,15 @@
     --orb-aqua: #49d4b4;
     --orb-aqua-dark: #22997e;
     --accent-gold: #c6941f;
+    --accent-gold-light: #e0a92a;
     --card-white: #ffffff;
     --bubble-bg: #f0f4f9;
     
+    /* Dedicated Dark Deck Elements */
+    --deck-bg: #111827;
+    --deck-input-bg: #1f2937;
+    --btn-mic-bg: #374151;
+
     /* Text Colors */
     --text-light-title: #ffffff;
     --text-dark-body: #1e293b;
@@ -42,11 +48,10 @@ body {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    overflow-y: auto; /* Allow screen scrolling only if chat goes very long */
+    overflow-y: auto;
     overflow-x: hidden;
 }
 
-/* Full screen structural wrapper */
 .app-wrapper {
     width: 100%;
     display: flex;
@@ -54,7 +59,6 @@ body {
     padding: 16px;
 }
 
-/* Width-constrained container mimicking mobile/bounded layout */
 .app-container {
     width: 100%;
     max-width: 440px;
@@ -73,7 +77,6 @@ body {
     flex-shrink: 0;
 }
 
-/* Interactive Orb Setup */
 .orb-wrap {
     width: 90px;
     height: 90px;
@@ -135,7 +138,6 @@ body {
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
-/* Titles */
 #profile-header h1 {
     font-size: 1.7rem;
     font-weight: 800;
@@ -158,10 +160,9 @@ body {
     background: var(--card-white);
     border-radius: 24px;
     padding: 16px;
-    /* DYNAMIC EXPANSION RULES: Start small, grow to fit, clamp max limit */
     height: auto;
-    min-height: 180px;
-    max-height: 60vh; 
+    min-height: 240px; /* Slightly increased to perfectly accommodate the command deck */
+    max-height: 65vh; 
     display: flex;
     flex-direction: column;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
@@ -178,7 +179,6 @@ body {
     padding-bottom: 12px;
 }
 
-/* Clean up scrollbar inside white card */
 .chat-display::-webkit-scrollbar {
     width: 4px;
 }
@@ -188,7 +188,8 @@ body {
 }
 
 /* ==========================================================================
-   5. CHAT BUBBLES */
+   5. CHAT BUBBLES
+   ========================================================================== */
 
 .ai-message-card {
     align-self: flex-start;
@@ -228,62 +229,74 @@ body {
 }
 
 /* ==========================================================================
-   6. COMMAND BAR (STICKY COMPACT INPUT PANEL)
+   6. PROFESSIONAL COMMAND DECK (CLAUDE-INSPIRED ACTIONS BELOW)
    ========================================================================== */
 
-.command-bar {
+.command-deck {
+    background: var(--deck-bg);
+    border-radius: 16px;
+    padding: 12px;
     display: flex;
-    align-items: center;
-    gap: 8px;
+    flex-direction: column;
+    gap: 10px;
     margin-top: auto;
-    padding-top: 10px;
-    border-top: 1px solid rgba(0, 0, 0, 0.04);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-/* Composite Input Field Wrapper */
-.input-container {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    background: #090d16;
-    border-radius: 12px;
-    padding: 0 12px;
-    height: 44px;
-    border: 1px solid transparent;
-    transition: var(--transition-smooth);
-}
-
-.input-mic-icon {
-    font-size: 1rem;
-    color: var(--accent-gold);
-    margin-right: 8px;
-    cursor: pointer;
-}
-
+/* Dark Input Window Box */
 #message {
-    flex: 1;
-    background: transparent;
-    border: none;
+    width: 100%;
+    background: var(--deck-input-bg);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
     outline: none;
     color: #ffffff;
     font-family: var(--font-sans);
-    font-size: 0.9rem;
-    height: 100%;
+    font-size: 0.92rem;
+    padding: 12px;
+    resize: none;
+    line-height: 1.4;
 }
 
 #message::placeholder {
-    color: rgba(198, 148, 31, 0.4);
+    color: rgba(255, 255, 255, 0.35);
 }
 
-.input-container:focus-within {
-    border-color: rgba(198, 148, 31, 0.5);
+/* Container Row for the Buttons Below Input */
+.action-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }
 
-/* Action Trigger Button */
+/* 🎤 Speaker Button - Clear, high-contrast, fully professional action button */
+#mic-btn {
+    height: 38px;
+    width: 38px;
+    font-size: 1.05rem;
+    border-radius: 8px;
+    border: none;
+    background: var(--btn-mic-bg);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+#mic-btn:hover {
+    background: #4b5563;
+    transform: translateY(-1px);
+}
+
+/* Send Button - Distinct Gold Action Core */
 #send-btn {
-    height: 44px;
-    padding: 0 18px;
-    border-radius: 10px;
+    height: 38px;
+    padding: 0 20px;
+    border-radius: 8px;
     border: none;
     background: var(--accent-gold);
     color: #000000;
@@ -291,14 +304,16 @@ body {
     font-size: 0.9rem;
     cursor: pointer;
     transition: var(--transition-smooth);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
 #send-btn:hover {
-    filter: brightness(1.08);
+    background: var(--accent-gold-light);
+    transform: translateY(-1px);
 }
 
-#send-btn:active {
-    transform: scale(0.98);
+#send-btn:active, #mic-btn:active {
+    transform: scale(0.97);
 }
 
 /* ==========================================================================
