@@ -2,20 +2,22 @@
    1. VARIABLES & RESET
    ========================================================================== */
 
-   :root {
-    --teal-primary: #14b8a6;
-    --teal-light: #99f6e4;
-    --teal-dark: #0f766e;
-
-    --bg-dark-void: #05070f;
-    --bg-cosmic-indigo: #0f172a;
-
-    --gold-primary: #d4af37;
-    --gold-dark: #b8860b;
-    --gold-deep: #8b6508;
+:root {
+    /* Color Palette from Image */
+    --bg-dark-cosmic: #030a16;
+    --orb-aqua: #49d4b4;
+    --orb-aqua-dark: #22997e;
+    --accent-gold: #c6941f;
+    --card-white: #ffffff;
+    --bubble-bg: #f0f4f9;
+    
+    /* Text Colors */
+    --text-light-title: #ffffff;
+    --text-dark-body: #1e293b;
+    --text-muted-label: #64748b;
 
     --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-    --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 * {
@@ -25,307 +27,286 @@
 }
 
 /* ==========================================================================
-   2. BASE LAYOUT
+   2. BASE LAYOUT & BOUNDARIES
    ========================================================================== */
 
 body {
     min-height: 100vh;
     font-family: var(--font-sans);
     background: radial-gradient(
-        ellipse 120% 80% at 50% 0%,
-        #0c1e24 0%,
-        var(--bg-dark-void) 60%
+        circle at 50% 20%,
+        #0b233a 0%,
+        var(--bg-dark-cosmic) 70%
     );
-    color: #f8fafc;
-    overflow: hidden;
+    color: var(--text-light-title);
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    overflow-x: hidden;
 }
 
-/* MAIN WRAPPER */
-.app {
+/* Full screen structural wrapper */
+.app-wrapper {
     width: 100%;
-    max-width: 900px;
-    height: 100vh;
-    padding: 24px;
+    display: flex;
+    justify-content: center;
+    padding: 20px 16px;
+}
+
+/* Width-constrained container mimicking mobile/bounded layout */
+.app-container {
+    width: 100%;
+    max-width: 440px;
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 20px;
 }
 
 /* ==========================================================================
-   3. HERO SECTION (CENTER FOCUS ORB)
+   3. PROFILE HEADER (ORB & TITLES)
    ========================================================================== */
 
-.hero {
+#profile-header {
     text-align: center;
-    padding-top: 10px;
+    padding: 10px 0 5px;
     flex-shrink: 0;
 }
 
+/* Interactive Orb Setup */
 .orb-wrap {
-    width: 110px;
-    height: 110px;
-    margin: 0 auto 18px;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 16px;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Glow aura */
 .orb-halo {
     position: absolute;
-    inset: -22px;
+    inset: -15px;
     border-radius: 50%;
     background: radial-gradient(
         circle,
-        rgba(20, 184, 166, 0.45),
+        rgba(73, 212, 180, 0.35),
         transparent 70%
     );
-    filter: blur(10px);
+    filter: blur(6px);
     animation: glowPulse 3.5s ease-in-out infinite;
 }
 
-/* Rings */
-.orb-ring,
-.orb-ring2 {
+.orb-ring, .orb-ring2 {
     position: absolute;
     border-radius: 50%;
-    border: 1px solid rgba(20, 184, 166, 0.15);
+    border: 1px solid rgba(73, 212, 180, 0.18);
 }
 
-.orb-ring {
-    inset: -10px;
-}
+.orb-ring { inset: -6px; }
+.orb-ring2 { inset: -14px; opacity: 0.6; }
 
-.orb-ring2 {
-    inset: -22px;
-    opacity: 0.5;
-}
-
-/* Core orb */
 .orb {
-    width: 110px;
-    height: 110px;
+    width: 84px;
+    height: 84px;
     border-radius: 50%;
     background: radial-gradient(
         circle at 35% 35%,
-        var(--teal-light),
-        var(--teal-primary) 55%,
-        var(--teal-dark)
+        #a7f3d0,
+        var(--orb-aqua) 55%,
+        var(--orb-aqua-dark)
     );
-    border: 1px solid rgba(255,255,255,0.25);
-    box-shadow:
-        0 10px 30px rgba(20, 184, 166, 0.45),
-        0 0 60px rgba(20, 184, 166, 0.25);
-    animation: orbPulse 3.5s ease-in-out infinite;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 
+        0 8px 24px rgba(73, 212, 180, 0.4),
+        0 0 40px rgba(73, 212, 180, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: relative;
+    z-index: 2;
+    animation: orbPulse 3.5s ease-in-out infinite;
+}
+
+.orb-letter {
+    font-size: 2.1rem;
+    font-weight: 800;
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
 /* Titles */
-.hero h1 {
-    font-size: 2.4rem;
+#profile-header h1 {
+    font-size: 1.9rem;
     font-weight: 800;
-    background: linear-gradient(135deg, #ffffff, var(--teal-light));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.05em;
+    color: var(--text-light-title);
+    margin-bottom: 4px;
 }
 
-.hero p {
-    margin-top: 6px;
-    font-size: 0.9rem;
-    color: #64748b;
+#profile-header p {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--accent-gold);
 }
 
 /* ==========================================================================
-   4. CHAT CONTAINER (MAIN STAGE)
+   4. CONTENT CARD (THE WHITE CARD PLATFORM)
    ========================================================================== */
 
-.chat-container {
-    flex: 1;
+.content-card {
+    background: var(--card-white);
+    border-radius: 28px;
+    padding: 24px 20px 20px;
+    height: 520px;
     display: flex;
     flex-direction: column;
-    background: rgba(17, 24, 39, 0.78);
-    border: 1px solid rgba(255,255,255,0.06);
-    backdrop-filter: blur(28px);
-    border-radius: 22px;
-    padding: 18px;
-    overflow: hidden;
-    box-shadow: 0 25px 60px rgba(0,0,0,0.45);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
-/* CHAT BOX */
-#chat-box {
+/* CHAT DISPLAY AREA */
+.chat-display {
     flex: 1;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 14px;
-    padding-right: 6px;
+    gap: 16px;
+    padding-bottom: 12px;
 }
 
-/* scrollbar */
-#chat-box::-webkit-scrollbar {
+/* Clean up scrollbar inside white card */
+.chat-display::-webkit-scrollbar {
     width: 4px;
 }
-#chat-box::-webkit-scrollbar-track {
-    background: transparent;
-}
-#chat-box::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.12);
+.chat-display::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
     border-radius: 10px;
 }
 
 /* ==========================================================================
-   5. CHAT BUBBLES & CARDS (REDUCED ACCORDING TO 20% BOUND RULE)
+   5. CHAT BUBBLES (IMAGE-MATCHED COMPACT LAYOUT)
    ========================================================================== */
 
-.message, .ai-card {
-    max-width: 60%; /* Reduced by 20% from 75% for structured density */
-    line-height: 1.55;
-    font-size: 0.95rem;
-    word-wrap: break-word;
-}
-
-.message {
-    padding: 12px 15px;
-    border-radius: 16px;
-    animation: fadeIn 0.2s ease-out;
-}
-
-/* USER (GOLD IDENTITY) */
-.user {
-    align-self: flex-end;
-    background: linear-gradient(135deg, var(--gold-dark), var(--gold-deep));
-    color: #0b0b0b;
-    border-bottom-right-radius: 4px;
-    font-weight: 600;
-    box-shadow: 0 6px 18px rgba(212,175,55,0.18);
-}
-
-/* AI RESPONSES / CARDS (WHITE FOCUS ZONE) */
-.ai, .ai-card {
+.ai-message-card {
     align-self: flex-start;
-    background: #ffffff;
-    color: #0b0b0b;
-    border-radius: 16px;
-    border-bottom-left-radius: 4px;
-    border: 1px solid rgba(0,0,0,0.06);
-    box-shadow: 0 10px 28px rgba(0,0,0,0.25);
+    background: var(--bubble-bg);
+    color: var(--text-dark-body);
+    padding: 16px 20px;
+    border-radius: 20px;
+    max-width: 85%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 
-/* Internal components of semantic HTML card wrapper */
-.ai-card {
-    animation: fadeIn 0.2s ease-out;
-}
-
-.ai-title {
-    font-size: 0.75rem;
+.ai-name {
+    font-size: 0.72rem;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.08em;
     font-weight: 700;
-    color: #64748b;
-    padding: 10px 15px 2px;
+    color: #556987;
 }
 
 .ai-body {
-    padding: 0 15px 12px;
+    font-size: 0.95rem;
+    line-height: 1.45;
+    font-weight: 500;
 }
 
-/* ANIMATION TRACKS */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(6px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-@keyframes orbPulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.04); }
-}
-@keyframes glowPulse {
-    0%, 100% { opacity: 0.6; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.12); }
+/* Basic User bubble wrapper just in case scripts append them */
+.user-message-card {
+    align-self: flex-end;
+    background: var(--accent-gold);
+    color: #000000;
+    padding: 12px 16px;
+    border-radius: 20px;
+    max-width: 85%;
+    font-weight: 600;
+    font-size: 0.95rem;
 }
 
 /* ==========================================================================
-   6. INPUT AREA (COMMAND PANEL WITH AMPLIFIED MIC UTILITY)
+   6. COMMAND BAR (STICKY LOWER INPUT RACK)
    ========================================================================== */
 
-.input-box {
+.command-bar {
     display: flex;
+    align-items: center;
     gap: 10px;
-    margin-top: 14px;
-    background: #000000;
-    border: 1px solid rgba(212,175,55,0.25);
-    border-radius: 14px;
-    padding: 10px;
+    margin-top: auto;
+    padding-top: 14px;
 }
 
-/* TEXT AREA */
-#message {
+/* Composite Input Field Wrapper */
+.input-container {
     flex: 1;
-    padding: 12px 14px;
-    border-radius: 10px;
-    border: 1px solid rgba(212,175,55,0.2);
-    background: #0a0c12;
-    color: #ffffff;
-    font-family: var(--font-sans);
-    font-size: 0.95rem;
-    outline: none;
+    display: flex;
+    align-items: center;
+    background: #090d16;
+    border-radius: 14px;
+    padding: 0 14px;
+    height: 48px;
+    border: 1px solid transparent;
     transition: var(--transition-smooth);
 }
 
-#message:focus {
-    border-color: rgba(212,175,55,0.6);
-    box-shadow: 0 0 0 2px rgba(212,175,55,0.12);
+.input-mic-icon {
+    font-size: 1.05rem;
+    color: var(--accent-gold);
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+#message {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #ffffff;
+    font-family: var(--font-sans);
+    font-size: 0.92rem;
+    height: 100%;
 }
 
 #message::placeholder {
-    color: rgba(255,255,255,0.3);
+    color: rgba(198, 148, 31, 0.4); /* Muted gold placeholder */
 }
 
-/* 🎤 AMPLIFIED WHISPER VOICE INTERACTION COMPONENT */
-#mic-btn {
-    width: 52px; /* Distinctly amplified layout space */
-    font-size: 1.25rem; /* Enriched graphic clarity */
-    border-radius: 10px;
-    border: 1px solid rgba(212, 175, 55, 0.25);
-    background: #0d0f17;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: var(--transition-smooth);
+.input-container:focus-within {
+    border-color: rgba(198, 148, 31, 0.5);
 }
 
-#mic-btn:hover {
-    background: #141926;
-    border-color: rgba(212, 175, 55, 0.6);
-    box-shadow: 0 0 12px rgba(212, 175, 55, 0.15);
-}
-
-/* SUBMIT UTILITY */
+/* Action Trigger Button */
 #send-btn {
-    padding: 12px 20px;
-    border-radius: 10px;
+    height: 48px;
+    padding: 0 22px;
+    border-radius: 12px;
     border: none;
-    cursor: pointer;
-    background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
-    color: #000;
+    background: var(--accent-gold);
+    color: #000000;
     font-weight: 700;
-    font-size: 0.95rem;
+    font-size: 0.92rem;
+    cursor: pointer;
     transition: var(--transition-smooth);
 }
 
 #send-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 0 16px rgba(212,175,55,0.35);
+    filter: brightness(1.08);
 }
 
-#send-btn:active, #mic-btn:active {
-    transform: translateY(1px);
+#send-btn:active {
+    transform: scale(0.98);
+}
+
+/* ==========================================================================
+   7. ANIMATIONS
+   ========================================================================== */
+
+@keyframes orbPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+}
+
+@keyframes glowPulse {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 0.9; transform: scale(1.08); }
 }
