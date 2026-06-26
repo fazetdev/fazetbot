@@ -3,7 +3,6 @@
    ========================================================================== */
 
 :root {
-    /* Color Palette from Image */
     --bg-dark-cosmic: #030a16;
     --orb-aqua: #49d4b4;
     --orb-aqua-dark: #22997e;
@@ -12,10 +11,9 @@
     --card-white: #ffffff;
     --bubble-bg: #f0f4f9;
     
-    /* Dedicated Dark Deck Elements */
-    --deck-bg: #111827;
-    --deck-input-bg: #1f2937;
-    --btn-mic-bg: #374151;
+    /* Clean High-Contrast Buttons */
+    --input-border: #e2e8f0;
+    --btn-mic-bg: #1e293b; /* Dark slate for prominent visibility */
 
     /* Text Colors */
     --text-light-title: #ffffff;
@@ -64,7 +62,7 @@ body {
     max-width: 440px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 14px;
 }
 
 /* ==========================================================================
@@ -153,7 +151,7 @@ body {
 }
 
 /* ==========================================================================
-   4. CONTENT CARD (DYNAMIC ADAPTIVE PLATFORM)
+   4. CONTENT CARD (WHITE GROUNDED COCKPIT)
    ========================================================================== */
 
 .content-card {
@@ -161,7 +159,7 @@ body {
     border-radius: 24px;
     padding: 16px;
     height: auto;
-    min-height: 240px; /* Slightly increased to perfectly accommodate the command deck */
+    min-height: 260px;
     max-height: 65vh; 
     display: flex;
     flex-direction: column;
@@ -229,53 +227,64 @@ body {
 }
 
 /* ==========================================================================
-   6. PROFESSIONAL COMMAND DECK (CLAUDE-INSPIRED ACTIONS BELOW)
+   6. CLEAN WHITE COMMAND DECK (INPUT SEPARATED, ACTIONS SIDE-BY-SIDE)
    ========================================================================== */
 
 .command-deck {
-    background: var(--deck-bg);
-    border-radius: 16px;
-    padding: 12px;
+    background: var(--card-white);
     display: flex;
     flex-direction: column;
     gap: 10px;
     margin-top: auto;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+    padding-top: 12px;
+    border-top: 1px solid #f1f5f9;
 }
 
-/* Dark Input Window Box */
+/* Crisp Separated Input Box */
 #message {
     width: 100%;
-    background: var(--deck-input-bg);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
+    background: #f8fafc;
+    border: 1px solid var(--input-border);
+    border-radius: 12px;
     outline: none;
-    color: #ffffff;
+    color: var(--text-dark-body);
     font-family: var(--font-sans);
     font-size: 0.92rem;
     padding: 12px;
     resize: none;
-    line-height: 1.4;
+    line-height: 1.45;
+    transition: var(--transition-smooth);
+}
+
+#message:focus {
+    border-color: #cbd5e1;
+    background: #ffffff;
 }
 
 #message::placeholder {
-    color: rgba(255, 255, 255, 0.35);
+    color: #94a3b8;
 }
 
-/* Container Row for the Buttons Below Input */
+/* Row pulling everything rightward */
 .action-row {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: flex-end;
     width: 100%;
 }
 
-/* 🎤 Speaker Button - Clear, high-contrast, fully professional action button */
+/* Tightly grouped action container */
+.button-group {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Tightly pairs the elements side-by-side */
+}
+
+/* 🎤 Speaker Button - Stark dark background for instant contrast and visibility */
 #mic-btn {
-    height: 38px;
-    width: 38px;
-    font-size: 1.05rem;
-    border-radius: 8px;
+    height: 40px;
+    width: 40px;
+    font-size: 1.15rem;
+    border-radius: 10px;
     border: none;
     background: var(--btn-mic-bg);
     color: #ffffff;
@@ -284,27 +293,27 @@ body {
     justify-content: center;
     cursor: pointer;
     transition: var(--transition-smooth);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
 }
 
 #mic-btn:hover {
-    background: #4b5563;
+    background: #0f172a;
     transform: translateY(-1px);
 }
 
-/* Send Button - Distinct Gold Action Core */
+/* Send Button - Crisp Gold Partner */
 #send-btn {
-    height: 38px;
-    padding: 0 20px;
-    border-radius: 8px;
+    height: 40px;
+    padding: 0 22px;
+    border-radius: 10px;
     border: none;
     background: var(--accent-gold);
     color: #000000;
     font-weight: 700;
-    font-size: 0.9rem;
+    font-size: 0.92rem;
     cursor: pointer;
     transition: var(--transition-smooth);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
 }
 
 #send-btn:hover {
