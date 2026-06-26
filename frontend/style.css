@@ -42,6 +42,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: flex-start;
+    overflow-y: auto; /* Allow screen scrolling only if chat goes very long */
     overflow-x: hidden;
 }
 
@@ -50,7 +51,7 @@ body {
     width: 100%;
     display: flex;
     justify-content: center;
-    padding: 20px 16px;
+    padding: 16px;
 }
 
 /* Width-constrained container mimicking mobile/bounded layout */
@@ -59,7 +60,7 @@ body {
     max-width: 440px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
 }
 
 /* ==========================================================================
@@ -68,15 +69,15 @@ body {
 
 #profile-header {
     text-align: center;
-    padding: 10px 0 5px;
+    padding: 5px 0 2px;
     flex-shrink: 0;
 }
 
 /* Interactive Orb Setup */
 .orb-wrap {
-    width: 100px;
-    height: 100px;
-    margin: 0 auto 16px;
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 12px;
     position: relative;
     display: flex;
     align-items: center;
@@ -85,7 +86,7 @@ body {
 
 .orb-halo {
     position: absolute;
-    inset: -15px;
+    inset: -12px;
     border-radius: 50%;
     background: radial-gradient(
         circle,
@@ -102,12 +103,12 @@ body {
     border: 1px solid rgba(73, 212, 180, 0.18);
 }
 
-.orb-ring { inset: -6px; }
-.orb-ring2 { inset: -14px; opacity: 0.6; }
+.orb-ring { inset: -5px; }
+.orb-ring2 { inset: -11px; opacity: 0.6; }
 
 .orb {
-    width: 84px;
-    height: 84px;
+    width: 76px;
+    height: 76px;
     border-radius: 50%;
     background: radial-gradient(
         circle at 35% 35%,
@@ -117,8 +118,8 @@ body {
     );
     border: 2px solid rgba(255, 255, 255, 0.2);
     box-shadow: 
-        0 8px 24px rgba(73, 212, 180, 0.4),
-        0 0 40px rgba(73, 212, 180, 0.2);
+        0 6px 20px rgba(73, 212, 180, 0.4),
+        0 0 30px rgba(73, 212, 180, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -128,7 +129,7 @@ body {
 }
 
 .orb-letter {
-    font-size: 2.1rem;
+    font-size: 1.9rem;
     font-weight: 800;
     color: #ffffff;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
@@ -136,31 +137,35 @@ body {
 
 /* Titles */
 #profile-header h1 {
-    font-size: 1.9rem;
+    font-size: 1.7rem;
     font-weight: 800;
     letter-spacing: 0.05em;
     color: var(--text-light-title);
-    margin-bottom: 4px;
+    margin-bottom: 2px;
 }
 
 #profile-header p {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     font-weight: 600;
     color: var(--accent-gold);
 }
 
 /* ==========================================================================
-   4. CONTENT CARD (THE WHITE CARD PLATFORM)
+   4. CONTENT CARD (DYNAMIC ADAPTIVE PLATFORM)
    ========================================================================== */
 
 .content-card {
     background: var(--card-white);
-    border-radius: 28px;
-    padding: 24px 20px 20px;
-    height: 520px;
+    border-radius: 24px;
+    padding: 16px;
+    /* DYNAMIC EXPANSION RULES: Start small, grow to fit, clamp max limit */
+    height: auto;
+    min-height: 180px;
+    max-height: 60vh; 
     display: flex;
     flex-direction: column;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    transition: height 0.2s ease;
 }
 
 /* CHAT DISPLAY AREA */
@@ -169,7 +174,7 @@ body {
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
     padding-bottom: 12px;
 }
 
@@ -183,23 +188,22 @@ body {
 }
 
 /* ==========================================================================
-   5. CHAT BUBBLES (IMAGE-MATCHED COMPACT LAYOUT)
-   ========================================================================== */
+   5. CHAT BUBBLES */
 
 .ai-message-card {
     align-self: flex-start;
     background: var(--bubble-bg);
     color: var(--text-dark-body);
-    padding: 16px 20px;
-    border-radius: 20px;
-    max-width: 85%;
+    padding: 12px 16px;
+    border-radius: 16px;
+    max-width: 90%;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
 }
 
 .ai-name {
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     font-weight: 700;
@@ -207,33 +211,33 @@ body {
 }
 
 .ai-body {
-    font-size: 0.95rem;
-    line-height: 1.45;
+    font-size: 0.92rem;
+    line-height: 1.4;
     font-weight: 500;
 }
 
-/* Basic User bubble wrapper just in case scripts append them */
 .user-message-card {
     align-self: flex-end;
     background: var(--accent-gold);
     color: #000000;
-    padding: 12px 16px;
-    border-radius: 20px;
-    max-width: 85%;
+    padding: 10px 14px;
+    border-radius: 16px;
+    max-width: 90%;
     font-weight: 600;
-    font-size: 0.95rem;
+    font-size: 0.92rem;
 }
 
 /* ==========================================================================
-   6. COMMAND BAR (STICKY LOWER INPUT RACK)
+   6. COMMAND BAR (STICKY COMPACT INPUT PANEL)
    ========================================================================== */
 
 .command-bar {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     margin-top: auto;
-    padding-top: 14px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 /* Composite Input Field Wrapper */
@@ -242,17 +246,17 @@ body {
     display: flex;
     align-items: center;
     background: #090d16;
-    border-radius: 14px;
-    padding: 0 14px;
-    height: 48px;
+    border-radius: 12px;
+    padding: 0 12px;
+    height: 44px;
     border: 1px solid transparent;
     transition: var(--transition-smooth);
 }
 
 .input-mic-icon {
-    font-size: 1.05rem;
+    font-size: 1rem;
     color: var(--accent-gold);
-    margin-right: 10px;
+    margin-right: 8px;
     cursor: pointer;
 }
 
@@ -263,12 +267,12 @@ body {
     outline: none;
     color: #ffffff;
     font-family: var(--font-sans);
-    font-size: 0.92rem;
+    font-size: 0.9rem;
     height: 100%;
 }
 
 #message::placeholder {
-    color: rgba(198, 148, 31, 0.4); /* Muted gold placeholder */
+    color: rgba(198, 148, 31, 0.4);
 }
 
 .input-container:focus-within {
@@ -277,14 +281,14 @@ body {
 
 /* Action Trigger Button */
 #send-btn {
-    height: 48px;
-    padding: 0 22px;
-    border-radius: 12px;
+    height: 44px;
+    padding: 0 18px;
+    border-radius: 10px;
     border: none;
     background: var(--accent-gold);
     color: #000000;
     font-weight: 700;
-    font-size: 0.92rem;
+    font-size: 0.9rem;
     cursor: pointer;
     transition: var(--transition-smooth);
 }
