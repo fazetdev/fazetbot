@@ -1,78 +1,98 @@
-console.log("Script Loaded");
+Console.log("Script Loaded");
 
-async function sendMessage() {
-    console.log("Button Clicked");
+Async function sendMessage() {
+    Console.log("Button Clicked");
 
-    const input = document.getElementById("message");
-    const sendBtn = document.getElementById("send-btn");
-    const message = input.value.trim();
+    Const input = document.getElementById("message");
+    Const sendBtn = document.getElementById("send-btn");
+    Const message = input.value.trim();
 
-    if (!message) return;
+    If (!message) return;
 
-    // Append the user's message to the chat layout
-    appendMessage("user", message);
-    input.value = "";
+    // Append the user's message to the chat layout using the new design system
+    AppendMessage("user", message);
+    Input.value = "";
 
-    // Throttling: Disable input and button to protect Gemini limits
-    input.disabled = true;
-    sendBtn.disabled = true;
+    // Throttling: Disable input and button to protect server limits
+    Input.disabled = true;
+    SendBtn.disabled = true;
 
-    try {
-        // FIXED: Changed route path from "/chat" to "/api/chat"
-        const response = await fetch("/api/chat", {
-            method: "POST",
-            headers: {
+    Try {
+        Const response = await fetch("/api/chat", {
+            Method: "POST",
+            Headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-                message: message
+            Body: JSON.stringify({
+                Message: message
             })
         });
 
-        const data = await response.json();
-        console.log(data);
+        Const data = await response.json();
+        Console.log(data);
 
-        // Append the AI response or an error string if returned by app.py
-        if (data.answer) {
-            appendMessage("ai", data.answer);
+        If (data.answer) {
+            AppendMessage("ai", data.answer);
         } else {
-            appendMessage("ai", "Error: Received empty response from assistant.");
+            AppendMessage("ai", "Error: Received empty response from assistant.");
         }
 
     } catch (error) {
-        console.error(error);
-        appendMessage(
+        Console.error(error);
+        AppendMessage(
             "ai",
             "Error: Cannot connect to server"
         );
     } finally {
         // Re-enable inputs once processing finishes
-        input.disabled = false;
-        sendBtn.disabled = false;
-        input.focus(); // Pull cursor focus back to input bar
+        Input.disabled = false;
+        SendBtn.disabled = false;
+        Input.focus();
     }
 }
 
+// Updated to build the beautiful new structured card nodes
 function appendMessage(sender, text) {
-    const chatBox = document.getElementById("chat-box");
-    const messageDiv = document.createElement("div");
+    Const chatBox = document.getElementById("chat-box");
+    
+    If (sender === "user") {
+        // User Card Generation
+        Const userDiv = document.createElement("div");
+        UserDiv.classList.add("user-message-card");
+        UserDiv.innerText = text;
+        ChatBox.appendChild(userDiv);
+    } else {
+        // AI Structured Card Generation to match index.html styling
+        Const aiCard = document.createElement("div");
+        AiCard.classList.add("ai-message-card");
 
-    messageDiv.classList.add("message", sender);
-    messageDiv.innerText = text;
+        Const aiName = document.createElement("div");
+        AiName.classList.add("ai-name");
+        AiName.innerText = "Fazet AI";
 
-    chatBox.appendChild(messageDiv);
-    chatBox.scrollTop = chatBox.scrollHeight;
+        Const aiBody = document.createElement("div");
+        AiBody.classList.add("ai-body");
+        AiBody.innerText = text;
+
+        AiCard.appendChild(aiName);
+        AiCard.appendChild(aiBody);
+        ChatBox.appendChild(aiCard);
+    }
+
+    // Auto-scroll screen down comfortably
+    ChatBox.scrollTop = chatBox.scrollHeight;
 }
 
 document
     .getElementById("send-btn")
     .addEventListener("click", sendMessage);
 
+// Clear form interceptor matching desktop textarea rules
 document
     .getElementById("message")
     .addEventListener("keydown", function (e) {
-        if (e.key === "Enter" && !this.disabled) {
-            e.preventDefault();
-            sendMessage();
+        If (e.key === "Enter" && !e.shiftKey && !this.disabled) {
+            E.preventDefault();
+            SendMessage();
         }
     });
