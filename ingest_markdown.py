@@ -2,11 +2,12 @@ import os
 import re
 import psycopg2
 from dotenv import load_dotenv
-import google.generativeai as genai
+from google import genai
+from google.genai import types
 
 load_dotenv()
 
-# 1. Initialize Gemini API Configuration
+# 1. Initialize Configuration
 API_KEY = os.getenv("GEMINI_API_KEY")
 DATABASE_URL = os.getenv("DATABASE_URL")
 
@@ -15,8 +16,8 @@ if not API_KEY:
 if not DATABASE_URL:
     raise ValueError("Missing DATABASE_URL environment variable.")
 
-genai.configure(api_key=API_KEY)
-EMBEDDING_MODEL = "models/text-embedding-004"
+client = genai.Client(api_key=API_KEY)
+EMBEDDING_MODEL = "gemini-embedding-001"
 
 # 2. Connect to Neon Database
 conn = psycopg2.connect(DATABASE_URL)
@@ -57,6 +58,10 @@ def sync_knowledge_base():
     
     knowledge_dir = "knowledge"
     
+    if not os.path.exists(knowledge_dir):
+        print(f"⚠️ Error: '{knowledge_dir}' directory not found!")
+        return
+        
     for root, _, files in os.walk(knowledge_dir):
         for file in files:
             if file.endswith('.md'):
@@ -66,15 +71,16 @@ def sync_knowledge_base():
                 chunks = parse_markdown_by_sections(file_path)
                 
                 for chunk in chunks:
-                    # Generate 768-dimensional cloud embedding vector
-                    embedding_response = genai.embed_content(
+                    # Requesting 768 dimensions explicitly to fit your pgvector schema
+                    response = client.models.embed_content(
                         model=EMBEDDING_MODEL,
-                        content=chunk["content"],
-                        task_type="retrieval_document"
+                        contents=chunk["content"],
+                        config=types.EmbedContentConfig(
+                            output_dimensionality=768
+                        )
                     )
-                    vector = embedding_response['embedding']
+                    vector = response.embeddings[0].values
                     
-                    # Store safely in Neon
                     cursor.execute("""
                         INSERT INTO fazetbot_chunks (file_path, section_title, content, embedding)
                         VALUES (%s, %s, %s, %s);
