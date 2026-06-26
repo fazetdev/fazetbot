@@ -13,13 +13,13 @@ async function sendMessage() {
     appendMessage("user", message);
     input.value = "";
 
-    // Throttling: Disable input and button to protect Gemini Free Tier limits
+    // Throttling: Disable input and button to protect Gemini limits
     input.disabled = true;
     sendBtn.disabled = true;
 
     try {
-        // Updated to a relative path so it communicates seamlessly on the same port
-        const response = await fetch("/chat", {
+        // FIXED: Changed route path from "/chat" to "/api/chat"
+        const response = await fetch("/api/chat", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -46,7 +46,7 @@ async function sendMessage() {
             "Error: Cannot connect to server"
         );
     } finally {
-        // Re-enable inputs once Gemini finishes processing the answer
+        // Re-enable inputs once processing finishes
         input.disabled = false;
         sendBtn.disabled = false;
         input.focus(); // Pull cursor focus back to input bar
@@ -71,7 +71,6 @@ document
 document
     .getElementById("message")
     .addEventListener("keydown", function (e) {
-        // Allow sending with Enter, but ignore if the input is currently disabled
         if (e.key === "Enter" && !this.disabled) {
             e.preventDefault();
             sendMessage();
