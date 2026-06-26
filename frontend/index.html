@@ -1,56 +1,89 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fazet AI Assistant</title>
-  
-  <link rel="stylesheet" href="style.css">
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fazet AI</title>
+
+
+    <link rel="stylesheet" href="/frontend/style.css">
+
 </head>
+
 <body>
 
-  <main class="app">
+<div class="app">
 
     <section class="hero">
-      <div class="orb-wrap">
-          <div class="orb-halo"></div>
-          <div class="orb-ring"></div>
-          <div class="orb-ring2"></div>
-          <div class="orb"></div>
-      </div>
-      <h1>Fazet AI</h1>
-      <p>
-          Intelligent Knowledge Assistant for
-          Fazet Edutech Products and Services
-      </p>
+
+        <div class="orb-wrap">
+            <div class="orb-halo"></div>
+            <div class="orb-ring"></div>
+            <div class="orb-ring2"></div>
+            <div class="orb"></div>
+        </div>
+
+        <h1>Fazet AI</h1>
+
+        <p>
+            Intelligent Knowledge Assistant for
+            Fazet Edutech Products and Services
+        </p>
+
     </section>
 
     <section class="chat-container">
-      <div id="chat-box">
-          <div class="ai-card">
-              <div class="ai-title">Welcome</div>
-              <div class="ai-body">
-                  Ask anything about Fazet systems, services, or documents.
-              </div>
-          </div>
-      </div>
 
-      <div class="input-box">
-          <input
-              id="message"
-              type="text"
-              placeholder="Ask anything about Fazet..."
-          >
-          <button id="mic-btn" title="Voice Input">🎤</button>
-          <button id="send-btn">Send</button>
-      </div>
+        <div id="chat-box">
+
+            <div class="ai-card welcome-card">
+
+                <div class="ai-title">
+                    Welcome to Fazet AI
+                </div>
+
+                <div class="ai-body">
+                    Ask anything about Fazet products, services,
+                    company knowledge, educational solutions,
+                    or internal documents.
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="input-box">
+
+            <input
+                id="message"
+                type="text"
+                autocomplete="off"
+                placeholder="Ask anything about Fazet..."
+            >
+
+            <button
+                id="mic-btn"
+                type="button"
+                title="Voice Input">
+                🎤
+            </button>
+
+            <button
+                id="send-btn"
+                type="button">
+                Send
+            </button>
+
+        </div>
+
     </section>
 
-  </main>
+</div>
+
+<script src="/frontend/script.js" defer></script>
 
 </body>
+
 </html>

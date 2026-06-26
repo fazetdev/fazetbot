@@ -8,6 +8,8 @@ from sentence_transformers import SentenceTransformer
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles # <-- Added for serving frontend
+from fastapi.responses import FileResponse   # <-- Added for serving index.html
 from pydantic import BaseModel
 
 # =========================
@@ -151,9 +153,12 @@ def chat(req: ChatRequest):
     }
 
 # =========================
-# HEALTH CHECK
+# FRONTEND STATIC ROUTING
 # =========================
+
+# This serves your HTML, style.css, and script.js cleanly under your local server path
+app.mount("/frontend", StaticFiles(directory="frontend"), name="frontend")
 
 @app.get("/")
 def home():
-    return {"message": "Fazet AI API is running"}
+    return FileResponse("frontend/index.html")
