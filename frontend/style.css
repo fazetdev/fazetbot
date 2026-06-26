@@ -12,7 +12,7 @@
     --bubble-bg: #f0f4f9;
     
     /* Clean High-Contrast Buttons */
-    --input-border: #e2e8f0;
+    --input-border: #1e293b;
     --btn-mic-bg: #1e293b; /* Dark slate for prominent visibility */
 
     /* Text Colors */
@@ -227,7 +227,7 @@ body {
 }
 
 /* ==========================================================================
-   6. CLEAN WHITE COMMAND DECK (INPUT SEPARATED, ACTIONS SIDE-BY-SIDE)
+   6. CLEAN WHITE COMMAND DECK (SOLID BLACK INPUT WINDOW)
    ========================================================================== */
 
 .command-deck {
@@ -240,14 +240,14 @@ body {
     border-top: 1px solid #f1f5f9;
 }
 
-/* Crisp Separated Input Box */
+/* Solid Stark Black Input Window Box per image 1000182672.jpg */
 #message {
     width: 100%;
-    background: #f8fafc;
-    border: 1px solid var(--input-border);
+    background: #090d16; /* Deep solid dark space profile */
+    border: 1px solid #1e293b;
     border-radius: 12px;
     outline: none;
-    color: var(--text-dark-body);
+    color: #ffffff; /* Highly legible white response text entry */
     font-family: var(--font-sans);
     font-size: 0.92rem;
     padding: 12px;
@@ -257,12 +257,11 @@ body {
 }
 
 #message:focus {
-    border-color: #cbd5e1;
-    background: #ffffff;
+    border-color: rgba(198, 148, 31, 0.6); /* Gold outline glow on focus */
 }
 
 #message::placeholder {
-    color: #94a3b8;
+    color: #64748b; /* Muted clean slate placeholder color */
 }
 
 /* Row pulling everything rightward */
@@ -276,10 +275,10 @@ body {
 .button-group {
     display: flex;
     align-items: center;
-    gap: 8px; /* Tightly pairs the elements side-by-side */
+    gap: 8px;
 }
 
-/* 🎤 Speaker Button - Stark dark background for instant contrast and visibility */
+/* 🎤 Speaker Button */
 #mic-btn {
     height: 40px;
     width: 40px;
@@ -301,7 +300,7 @@ body {
     transform: translateY(-1px);
 }
 
-/* Send Button - Crisp Gold Partner */
+/* Send Button */
 #send-btn {
     height: 40px;
     padding: 0 22px;
