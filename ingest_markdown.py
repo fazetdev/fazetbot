@@ -53,11 +53,25 @@ def parse_markdown_by_sections(file_path):
     return chunks
 
 def sync_knowledge_base():
-    print("Clearing out old knowledge base records in Neon...")
-    cursor.execute("TRUNCATE TABLE fazetbot_chunks;")
-    
+    # Automatically drop and rebuild the schema to enforce correct columns
+    print("Enforcing correct schema structure in Neon Cloud...")
+    cursor.execute("CREATE EXTENSION IF NOT EXISTS vector;")
+    cursor.execute("DROP TABLE IF EXISTS fazetbot_chunks;")
+    cursor.execute("""
+        CREATE TABLE fazetbot_chunks (
+            id SERIAL PRIMARY KEY,
+            file_path TEXT NOT NULL,          
+            section_title TEXT,               
+            content TEXT NOT NULL,            
+            embedding vector(768),            
+            created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+        );
+    """)
+    cursor.execute("CREATE INDEX ON fazetbot_chunks USING hnsw (embedding vector_cosine_ops);")
+    conn.commit()
+    print("✅ Schema built cleanly!")
+
     knowledge_dir = "knowledge"
-    
     if not os.path.exists(knowledge_dir):
         print(f"⚠️ Error: '{knowledge_dir}' directory not found!")
         return
@@ -71,7 +85,6 @@ def sync_knowledge_base():
                 chunks = parse_markdown_by_sections(file_path)
                 
                 for chunk in chunks:
-                    # Requesting 768 dimensions explicitly to fit your pgvector schema
                     response = client.models.embed_content(
                         model=EMBEDDING_MODEL,
                         contents=chunk["content"],
