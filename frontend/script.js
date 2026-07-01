@@ -1,98 +1,114 @@
-Console.log("Script Loaded");
+console.log("Script Loaded - V1.1 Production");
 
-Async function sendMessage() {
-    Console.log("Button Clicked");
+async function sendMessage() {
+    console.log("Button Clicked");
 
-    Const input = document.getElementById("message");
-    Const sendBtn = document.getElementById("send-btn");
-    Const message = input.value.trim();
+    const input = document.getElementById("message");
+    const sendBtn = document.getElementById("send-btn");
+    const message = input.value.trim();
 
-    If (!message) return;
+    if (!message) return;
 
-    // Append the user's message to the chat layout using the new design system
-    AppendMessage("user", message);
-    Input.value = "";
+    // Append the user's message to the chat layout using the design system
+    appendMessage("user", message);
+    input.value = "";
 
     // Throttling: Disable input and button to protect server limits
-    Input.disabled = true;
-    SendBtn.disabled = true;
+    input.disabled = true;
+    sendBtn.disabled = true;
 
-    Try {
-        Const response = await fetch("/api/chat", {
-            Method: "POST",
-            Headers: {
+    try {
+        // FIXED: Hardcoding the absolute URL ensures it speaks directly to your FastAPI backend on Port 5000
+        const response = await fetch("http://127.0.0.1:5000/api/chat", {
+            method: "POST",
+            headers: {
                 "Content-Type": "application/json"
             },
-            Body: JSON.stringify({
-                Message: message
+            body: JSON.stringify({
+                message: message
             })
         });
 
-        Const data = await response.json();
-        Console.log(data);
+        // Handles bad HTTP statuses explicitly before trying to parse JSON
+        if (!response.ok) {
+            throw new Error(`Server responded with status ${response.status}`);
+        }
 
-        If (data.answer) {
-            AppendMessage("ai", data.answer);
+        const data = await response.json();
+        console.log(data);
+
+        // FIXED: Changed from data.answer to data.response to read the FastAPI payload correctly
+        if (data.response) {
+            appendMessage("ai", data.response);
         } else {
-            AppendMessage("ai", "Error: Received empty response from assistant.");
+            appendMessage("ai", "Error: Received empty response from assistant.");
         }
 
     } catch (error) {
-        Console.error(error);
-        AppendMessage(
+        console.error(error);
+        appendMessage(
             "ai",
-            "Error: Cannot connect to server"
+            "Error: Cannot connect to server. Please check terminal logs."
         );
     } finally {
         // Re-enable inputs once processing finishes
-        Input.disabled = false;
-        SendBtn.disabled = false;
-        Input.focus();
+        input.disabled = false;
+        sendBtn.disabled = false;
+        input.focus();
     }
 }
 
-// Updated to build the beautiful new structured card nodes
+// Builds the structured card nodes for user and AI streams
 function appendMessage(sender, text) {
-    Const chatBox = document.getElementById("chat-box");
+    const chatBox = document.getElementById("chat-box");
     
-    If (sender === "user") {
+    if (sender === "user") {
         // User Card Generation
-        Const userDiv = document.createElement("div");
-        UserDiv.classList.add("user-message-card");
-        UserDiv.innerText = text;
-        ChatBox.appendChild(userDiv);
+        const userDiv = document.createElement("div");
+        userDiv.classList.add("user-message-card");
+        userDiv.innerText = text;
+        chatBox.appendChild(userDiv);
     } else {
         // AI Structured Card Generation to match index.html styling
-        Const aiCard = document.createElement("div");
-        AiCard.classList.add("ai-message-card");
+        const aiCard = document.createElement("div");
+        aiCard.classList.add("ai-message-card");
 
-        Const aiName = document.createElement("div");
-        AiName.classList.add("ai-name");
-        AiName.innerText = "Fazet AI";
+        const aiName = document.createElement("div");
+        aiName.classList.add("ai-name");
+        aiName.innerText = "Fazet AI";
 
-        Const aiBody = document.createElement("div");
-        AiBody.classList.add("ai-body");
-        AiBody.innerText = text;
+        const aiBody = document.createElement("div");
+        aiBody.classList.add("ai-body");
 
-        AiCard.appendChild(aiName);
-        AiCard.appendChild(aiBody);
-        ChatBox.appendChild(aiCard);
+        // Isolated template strings to prevent tag loss during text copy/pasting
+        let boldTemplate = '<strong>$1</strong>';
+        let breakTemplate = '<br>';
+
+        let formattedText = text
+            .replace(/\*\*(.*?)\*\*/g, boldTemplate) // Formats Gemini's **bold** output
+            .replace(/\n/g, breakTemplate);         // Formats standard line breaks
+
+        aiBody.innerHTML = formattedText; 
+
+        aiCard.appendChild(aiName);
+        aiCard.appendChild(aiBody);
+        chatBox.appendChild(aiCard);
     }
 
     // Auto-scroll screen down comfortably
-    ChatBox.scrollTop = chatBox.scrollHeight;
+    chatBox.scrollTop = chatBox.scrollHeight;
 }
 
+// Action Events Integration
 document
     .getElementById("send-btn")
     .addEventListener("click", sendMessage);
 
-// Clear form interceptor matching desktop textarea rules
 document
     .getElementById("message")
     .addEventListener("keydown", function (e) {
-        If (e.key === "Enter" && !e.shiftKey && !this.disabled) {
-            E.preventDefault();
-            SendMessage();
+        if (e.key === "Enter" && !e.shiftKey && !this.disabled) {
+            e.preventDefault();
+            sendMessage();
         }
     });
